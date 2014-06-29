@@ -1,4 +1,5 @@
 var division = "grid";
+var maxX, maxY;
 var colors = ['rgb(93, 53, 39);', 'rgb(130, 36, 51);', 'rgb(198, 12, 48);', 'rgb(255, 99, 25);', 'rgb(253, 200, 47);','rgb(254, 221, 0);', 'rgb(51, 115, 33);', 'rgb(20, 77, 41);', 'rgb(40, 78, 54);', 'rgb(99, 153, 171);', 'rgb(0, 101, 189);', 'rgb(0, 57, 166);', 'rgb(0, 38, 100);', 'rgb(0, 33, 71);', 'rgb(0, 0, 0);', 'rgb(141, 129, 123);', 'rgb(255, 255, 255);'];
 
 $(document).ready(function() {
@@ -16,9 +17,30 @@ $(document).ready(function() {
 	
 	// Hook up events
 	$(".ratio").change(function() {
-		var x = $("#ratioWidth").val();
-		var y = $("#ratioHeight").val();
+		var x = parseInt($("#ratioWidth").val());
+		var y = parseInt($("#ratioHeight").val());
+		
+		if (x < 1) {
+			$("#ratioWidth").val("1");
+			x = 1;
+		}
+		
+		if (y < 1) {
+			$("#ratioHeight").val("1");
+			y = 1;
+		}
+		
 		setRatio(x, y);
+	});
+	
+	$("#gridSize").change(function() {
+		var val = $("#gridSize").val().split(':');
+		maxY = val[0];
+		maxX = val[1];
+		$("input[type=range]").each(function() {
+			var max = maxX > maxY ? maxX : maxY;
+			$(this).attr("max", max);
+		});
 	});
 	
 	$("input[type=range]").change(function() {
