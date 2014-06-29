@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>FlagMaker Jr.</title>
+	
+	<!-- Libraries -->
+	<link rel="stylesheet" type="text/css" href="spectrum\spectrum.css">
+	<script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="spectrum\spectrum.js" type="text/javascript"></script>
+	
+	<script src="divisions.js" type="text/javascript"></script>
+	<script src="fmj.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="fmj.css">
+</head>
+<body>
+	<div id="toolbar">
+		<span class="toollabel">Ratio</span>
+		<input type="number" id="ratioHeight" class="ratio" /> :
+		<input type="number" id="ratioWidth" class="ratio" />
+		<span class="toollabel marginleft">Grid size</span>
+		<select id="gridSize"></select>
+		<button onclick="newFlag();">New</button>
+	</div>
+	<div id="workarea">
+		<div id="flagarea" class="area">
+			<svg id="flag" xmlns="http://www.w3.org/2000/svg"></svg>
+		</div>
+		<div id="toolarea" class="area">
+			Division
+			<button class="divButton" id="divGrid">Grid</button>
+			<div id="divColors">
+				<input type="text" id="div1col" />
+				<input type="text" id="div2col" />
+				<input type="text" id="div3col" />
+			</div>
+			<span id="div1valdisp">2</span> <input type="range" id="div1val" min="1" /><br />
+			<span id="div2valdisp">2</span> <input type="range" id="div2val" min="1" /><br />
+			<span id="div3valdisp">2</span> <input type="range" id="div3val" min="1" />
+		</div>
+	</div>
+</body>
+</html>

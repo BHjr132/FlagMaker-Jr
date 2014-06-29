@@ -1,0 +1,50 @@
+﻿body {
+	margin: 0;
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
+}
+
+#toolbar {
+	background-color: #eeeeee;
+	padding: 5px;
+	border-bottom: 1px solid #cccccc;
+}
+
+.toollabel {
+	font-weight: bold;
+}
+
+.marginleft {
+	margin-left: 10px;
+}
+
+.ratio {
+	width: 35px;
+}
+
+#workarea {
+	float: left;
+	width: 100%;
+}
+
+.area {
+	padding: 10px;
+	float: left;
+}
+
+#flagarea {
+	width: 60%;
+	background-color: #efefef;
+	background: -webkit-gradient(linear, left bottom, left top, from(#eeeeee), to(#ffffff));1
+}
+
+#toolarea {
+	width: 35%;
+	background-color: #efefef;
+}
+
+#flag {
+	border: 1px solid #000000;
+	margin: 10px auto 10px auto;
+	background-color: #ffffff;
+	display: block;
+}
