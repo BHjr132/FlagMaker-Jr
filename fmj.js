@@ -32,7 +32,12 @@ $(document).ready(function() {
 	});
 	
 	// Initialize all values
+	setRatio();
 	newFlag();
+});
+
+$(window).resize(function() {
+	setFlagSize();
 });
 
 function newFlag() {
@@ -59,10 +64,12 @@ function setRatio(x, y) {
 		$("#gridSize").append("<option>" + (i*y) + ":" + (i*x) + "</option>");
 	}
 	
-	$("#flag").width(400);
-	$("#flag").height(400 * y / x);
-	
 	setDivs(x > y ? x : y);
+	setFlagSize();
+}
+
+function setFlagSize() {
+	$("#flag").height($("#flag").width() * $("#ratioHeight").val() / $("#ratioWidth").val());
 	draw();
 }
 
