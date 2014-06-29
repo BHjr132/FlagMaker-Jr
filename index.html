@@ -10,6 +10,7 @@
 	<script src="spectrum\spectrum.js" type="text/javascript"></script>
 	
 	<script src="divisions.js" type="text/javascript"></script>
+	<script src="overlays.js" type="text/javascript"></script>
 	<script src="fmj.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="fmj.css">
 </head>
@@ -44,6 +45,10 @@
 				<span id="div1valdisp">2</span> <input type="range" id="div1val" min="1" /><br />
 				<span id="div2valdisp">2</span> <input type="range" id="div2val" min="1" /><br />
 				<span id="div3valdisp">2</span> <input type="range" id="div3val" min="1" />
+			</div>
+			<div id="overlayArea">
+				<div><span class="header">Overlays</span> <button onclick="addOverlay();">+</button></div>
+				<div id="overlays"></div>
 			</div>
 		</div>
 	</div>

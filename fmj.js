@@ -4,12 +4,7 @@ var colors = ['rgb(93, 53, 39);', 'rgb(130, 36, 51);', 'rgb(198, 12, 48);', 'rgb
 
 $(document).ready(function() {
 	// Set up color pickers
-	$("#divColors input").spectrum({
-		showPalette: true,
-		showSelectionPalette: true,
-		palette: colors,
-		localStorageKey: "flagmakerjr"
-	});
+	$("#divColors input").each(function() { makePalette($(this)); });
 	
 	$("#divColors input").change(function() {
 		draw();
@@ -28,17 +23,28 @@ $(document).ready(function() {
 			var max = maxX > maxY ? maxX : maxY;
 			$(this).attr("max", max);
 		});
-	});
-	
-	$("input[type=range]").change(function() {
-		$("#" + $(this).attr("id") + "disp").html($(this).val());
-		draw();
+		
+		setSliderMaxes(maxX, maxY);
 	});
 	
 	$(".divbutton").click(function() {
 		division = $(this).attr("id");
 		draw();
 	});
+});
+
+function makePalette(p) {
+	p.spectrum({
+		showPalette: true,
+		showSelectionPalette: true,
+		palette: colors,
+		localStorageKey: "flagmakerjr"
+	});
+}
+
+$(document).on("click", "input[type=range]", function() {
+	$(this).prev().html($(this).val());
+	draw();
 });
 
 $(window).load(function() {
@@ -75,7 +81,7 @@ function setRatio(x, y) {
 		$("#gridSize").append("<option>" + (i*y) + ":" + (i*x) + "</option>");
 	}
 	
-	setDivs(x > y ? x : y);
+	setSliderMaxes(x, y);
 	setFlagSize();
 }
 
@@ -84,9 +90,22 @@ function setFlagSize() {
 	draw();
 }
 
-function setDivs(max) {
+function setSliderMaxes(x, y) {
+	maxX = x;
+	maxY = y;
+	var max = x > y ? y : x;
 	$("input[type=range]").each(function() {
-		$(this).attr("max", max);
+		var useX = $(this).attr("use-x");
+		var useY = $(this).attr("use-y");
+		if (useX != undefined && useX !== false) {
+			$(this).attr("max", x);
+		} else if (useY !== undefined && useY !== false) {
+			$(this).attr("max", y);
+		} else {
+			$(this).attr("max", max);
+		}
+		
+		$(this).val($(this).val());
 	});
 }
 
@@ -136,6 +155,10 @@ function draw() {
 			drawX();
 			break;
 	}
+	
+	$("#overlays").children().each(function() {
+		drawOverlay($(this));
+	});
 }
 
 function showSliders(count) {

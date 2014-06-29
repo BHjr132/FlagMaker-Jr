@@ -63,3 +63,12 @@ input[type=range] {
 	background-color: #ffffff;
 	display: block;
 }
+
+#overlayArea {
+	padding-top: 15px;
+}
+
+.overlay {
+	border: 1px solid #91765d;
+	padding: 5px;
+}
