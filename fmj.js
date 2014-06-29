@@ -52,10 +52,12 @@ $(document).ready(function() {
 		division = $(this).attr("id");
 		draw();
 	});
-	
+});
+
+$(window).load(function() {
 	// Initialize all values
-	setRatio();
 	newFlag();
+	setRatio(3, 2);
 });
 
 $(window).resize(function() {
