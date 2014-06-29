@@ -1,6 +1,7 @@
 ﻿body {
 	margin: 0;
 	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
+	font-size: 12pt;
 }
 
 #toolbar {
@@ -10,6 +11,11 @@
 }
 
 .toollabel {
+	font-weight: bold;
+}
+
+.header {
+	font-size: 20pt;
 	font-weight: bold;
 }
 
@@ -33,13 +39,22 @@
 
 #flagarea {
 	width: 60%;
-	background-color: #efefef;
-	background: -webkit-gradient(linear, left bottom, left top, from(#eeeeee), to(#ffffff));1
 }
 
 #toolarea {
-	width: 35%;
-	background-color: #efefef;
+	width: 350px;
+	padding: 10px;
+}
+
+.divbutton {
+	padding: 5px;
+	border: 1px solid #91765d;
+	background-color: #eeeeee;
+	cursor: pointer;
+}
+
+input[type=range] {
+	width: 300px;
 }
 
 #flag {

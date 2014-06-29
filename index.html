@@ -26,16 +26,23 @@
 			<svg id="flag" xmlns="http://www.w3.org/2000/svg"></svg>
 		</div>
 		<div id="toolarea" class="area">
-			Division
-			<button class="divButton" id="divGrid">Grid</button>
-			<div id="divColors">
-				<input type="text" id="div1col" />
-				<input type="text" id="div2col" />
-				<input type="text" id="div3col" />
+			<div id="divisions">
+				<div class="header">Division</div>
+				<img id="grid" src="img\grid.png" class="divbutton" title="Grid" />
+				<img id="fesses" src="img\fesses.png" class="divbutton" title="Fesses" />
+				<img id="pales" src="img\pales.png" class="divbutton" title="Pales" />
+				<img id="bendsf" src="img\bendsf.png" class="divbutton" title="Bends forward" />
+				<img id="bendsb" src="img\bendsb.png" class="divbutton" title="Bends backward" />
+				<img id="x" src="img\x.png" class="divbutton" title="Bends both" />
+				<div id="divColors">
+					<input type="text" id="div1col" />
+					<input type="text" id="div2col" />
+					<input type="text" id="div3col" />
+				</div>
+				<span id="div1valdisp">2</span> <input type="range" id="div1val" min="1" /><br />
+				<span id="div2valdisp">2</span> <input type="range" id="div2val" min="1" /><br />
+				<span id="div3valdisp">2</span> <input type="range" id="div3val" min="1" />
 			</div>
-			<span id="div1valdisp">2</span> <input type="range" id="div1val" min="1" /><br />
-			<span id="div2valdisp">2</span> <input type="range" id="div2val" min="1" /><br />
-			<span id="div3valdisp">2</span> <input type="range" id="div3val" min="1" />
 		</div>
 	</div>
 </body>

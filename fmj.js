@@ -26,19 +26,26 @@ $(document).ready(function() {
 		draw();
 	});
 	
+	$(".divbutton").click(function() {
+		division = $(this).attr("id");
+		draw();
+	});
+	
 	// Initialize all values
 	newFlag();
 });
 
 function newFlag() {
-	$("#div1col").spectrum("set", colors[2]);
-	$("#div2col").spectrum("set", colors[4]);
+	$("#div1col").spectrum("set", colors[1]);
+	$("#div2col").spectrum("set", colors[5]);
+	$("#div3col").spectrum("set", colors[11]);
 	$("#div1val").val(2);
 	$("#div2val").val(2);
 	$("#div3val").val(2);
 	$("#div1valdisp").text(2);
 	$("#div2valdisp").text(2);
 	$("#div3valdisp").text(2);
+	division = "grid";
 	setRatio(3, 2);
 }
 
@@ -81,10 +88,59 @@ function draw() {
 	
 	switch(division) {
 		case "grid":
+			$("#div3col").spectrum("disable");
+			showSliders(2);
 			drawGrid();
 			break;
-		default:
-			alert("Error drawing division");
+		case "fesses":
+			$("#div3col").spectrum("enable");
+			showSliders(3);
+			drawFesses();
 			break;
+		case "pales":
+			$("#div3col").spectrum("enable");
+			showSliders(3);
+			drawPales();
+			break;
+		case "bendsf":
+			$("#div3col").spectrum("disable");
+			showSliders(0);
+			drawBendsF();
+			break;
+		case "bendsb":
+			$("#div3col").spectrum("disable");
+			showSliders(0);
+			drawBendsB();
+			break;
+		case "x":
+			$("#div3col").spectrum("disable");
+			showSliders(0);
+			drawX();
+			break;
+	}
+}
+
+function showSliders(count) {
+	if (count == 0) {
+		$("#div1valdisp").hide();
+		$("#div1val").hide();
+		$("#div2valdisp").hide();
+		$("#div2val").hide();
+		$("#div3valdisp").hide();
+		$("#div3val").hide();
+	} else if (count == 2) {
+		$("#div1valdisp").show();
+		$("#div1val").show();
+		$("#div2valdisp").show();
+		$("#div2val").show();
+		$("#div3valdisp").hide();
+		$("#div3val").hide();
+	} else if (count == 3) {
+		$("#div1valdisp").show();
+		$("#div1val").show();
+		$("#div2valdisp").show();
+		$("#div2val").show();
+		$("#div3valdisp").show();
+		$("#div3val").show();
 	}
 }
