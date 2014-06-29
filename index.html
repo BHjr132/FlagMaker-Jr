@@ -4,8 +4,10 @@
 	<title>FlagMaker Jr.</title>
 	
 	<!-- Libraries -->
-	<link rel="stylesheet" type="text/css" href="spectrum\spectrum.css">
+	<link href="spectrum\spectrum.css" rel="stylesheet" type="text/css" />
+	<link href="jquery-ui\jquery-ui.min.css" rel="stylesheet" />
 	<script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="jquery-ui\jquery-ui.min.js" type="text/javascript"></script>
 	<script src="spectrum\spectrum.js" type="text/javascript"></script>
 	
 	<script src="divisions.js" type="text/javascript"></script>
@@ -15,8 +17,8 @@
 <body>
 	<div id="toolbar">
 		<span class="toollabel">Ratio</span>
-		<input type="number" id="ratioHeight" class="ratio" /> :
-		<input type="number" id="ratioWidth" class="ratio" />
+		<input id="ratioHeight" class="ratio" min="1" /> :
+		<input id="ratioWidth" class="ratio" min="1" />
 		<span class="toollabel marginleft">Grid size</span>
 		<select id="gridSize"></select>
 		<button onclick="newFlag();">New</button>
@@ -29,12 +31,27 @@
 		<div id="toolarea" class="area">
 			<div id="divisions">
 				<div class="header">Division</div>
-				<img id="grid" src="img\grid.png" class="divbutton" title="Grid" />
-				<img id="fesses" src="img\fesses.png" class="divbutton" title="Fesses" />
-				<img id="pales" src="img\pales.png" class="divbutton" title="Pales" />
-				<img id="bendsf" src="img\bendsf.png" class="divbutton" title="Bends forward" />
-				<img id="bendsb" src="img\bendsb.png" class="divbutton" title="Bends backward" />
-				<img id="x" src="img\x.png" class="divbutton" title="Bends both" />
+				<div id="divButtons">
+					<input type="radio" id="grid" name="radio" title="Grid">
+						<label for="grid"><img src="img\grid.png" /></label>
+					</input>
+					<input type="radio" id="fesses" name="radio" title="Fesses">
+						<label for="fesses"><img src="img\fesses.png" /></label>
+					</input>
+					<input type="radio" id="pales" name="radio" title="Pales">
+						<label for="pales"><img src="img\pales.png" /></label>
+					</input>
+					<input type="radio" id="bendsf" name="radio" title="Bends forward">
+						<label for="bendsf"><img src="img\bendsf.png" /></label>
+					</input>
+					<input type="radio" id="bendsb" name="radio" title="Bends backward">
+						<label for="bendsb"><img src="img\bendsb.png" /></label>
+					</input>
+					<input type="radio" id="x" name="radio" title="Bends both">
+						<label for="x"><img src="img\x.png" /></label>
+					</input>
+				</div>
+				
 				<div id="divColors">
 					<input type="text" id="div1col" />
 					<input type="text" id="div2col" />
@@ -43,6 +60,9 @@
 				<span id="div1valdisp">2</span> <input type="range" id="div1val" min="1" /><br />
 				<span id="div2valdisp">2</span> <input type="range" id="div2val" min="1" /><br />
 				<span id="div3valdisp">2</span> <input type="range" id="div3val" min="1" />
+			</div>
+			<div id="overlays">
+				<div><span class="header">Overlays</span> <button>+</button></div>
 			</div>
 		</div>
 	</div>

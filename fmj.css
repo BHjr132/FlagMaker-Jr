@@ -1,7 +1,11 @@
 ﻿body {
 	margin: 0;
-	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
-	font-size: 12pt;
+	font-family: "Trebuchet MS", sans-serif;
+	font-size: 75%;
+}
+
+.ui-button-text {
+	padding: .2em .5em !important;
 }
 
 #toolbar {
@@ -42,15 +46,16 @@
 }
 
 #toolarea {
-	width: 350px;
+	width: 400px;
 	padding: 10px;
 }
 
-.divbutton {
-	padding: 5px;
-	border: 1px solid #91765d;
-	background-color: #eeeeee;
-	cursor: pointer;
+#divColors {
+	margin-top: 7px;
+}
+
+#overlays {
+	margin-top: 15px;
 }
 
 input[type=range] {

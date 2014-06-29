@@ -15,22 +15,32 @@ $(document).ready(function() {
 		draw();
 	});
 	
+	$(".ratio").each(function() {
+		$(this).spinner();
+	});
+	
+	$(".ui-spinner-button").click(function() {
+		$(this).siblings("input").change();
+	});
+	
+	$("#gridSize").selectmenu({ width: 100, padding_top: 15 });
+	
+	$(".divbutton").each(function() {
+		$(this).button();
+	});
+	
+	$("#divButtons").buttonset();
+	$("#divButtons").children().each(function() { 
+		var radio = $(this).prop("for");
+		$(this).prop("title", $("#" + radio).prop("title"));
+		$(this).tooltip();
+	});
+	
+	$("button").each(function() { $(this).button(); });
+	
 	// Hook up events
 	$(".ratio").change(function() {
-		var x = parseInt($("#ratioWidth").val());
-		var y = parseInt($("#ratioHeight").val());
-		
-		if (x < 1) {
-			$("#ratioWidth").val("1");
-			x = 1;
-		}
-		
-		if (y < 1) {
-			$("#ratioHeight").val("1");
-			y = 1;
-		}
-		
-		setRatio(x, y);
+		setRatio(parseInt($("#ratioWidth").val()), parseInt($("#ratioHeight").val()));
 	});
 	
 	$("#gridSize").change(function() {
@@ -55,9 +65,8 @@ $(document).ready(function() {
 });
 
 $(window).load(function() {
-	// Initialize all values
+	$("#gridSize-button").css("display", "inline-flex");
 	newFlag();
-	setRatio(3, 2);
 });
 
 $(window).resize(function() {
