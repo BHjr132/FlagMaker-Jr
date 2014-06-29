@@ -17,20 +17,7 @@ $(document).ready(function() {
 	
 	// Hook up events
 	$(".ratio").change(function() {
-		var x = parseInt($("#ratioWidth").val());
-		var y = parseInt($("#ratioHeight").val());
-		
-		if (x < 1) {
-			$("#ratioWidth").val("1");
-			x = 1;
-		}
-		
-		if (y < 1) {
-			$("#ratioHeight").val("1");
-			y = 1;
-		}
-		
-		setRatio(x, y);
+		setRatio($("#ratioWidth").val(), $("#ratioHeight").val());
 	});
 	
 	$("#gridSize").change(function() {
