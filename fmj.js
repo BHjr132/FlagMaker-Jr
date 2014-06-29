@@ -144,3 +144,10 @@ function showSliders(count) {
 		$("#div3val").show();
 	}
 }
+
+function exportSvg() {
+	var pom = document.createElement("a");
+	pom.setAttribute("href", "data:image/svg+xml;charset=utf-8," + $('<svg>').append($('#flag').clone()).html(), "flag.svg");
+	pom.setAttribute("download", "flag.svg");
+	pom.click();
+}
