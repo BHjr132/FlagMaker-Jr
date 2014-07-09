@@ -63,6 +63,7 @@ function newFlag() {
 	$("#div1valdisp").text(2);
 	$("#div2valdisp").text(2);
 	$("#div3valdisp").text(2);
+	$("#overlays").empty();
 	division = "grid";
 	maxX = 3;
 	maxY = 2;
