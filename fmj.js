@@ -19,12 +19,8 @@ $(document).ready(function() {
 		var val = $("#gridSize").val().split(':');
 		maxY = val[0];
 		maxX = val[1];
-		$("input[type=range]").each(function() {
-			var max = maxX > maxY ? maxX : maxY;
-			$(this).attr("max", max);
-		});
-		
 		setSliderMaxes(maxX, maxY);
+		draw();
 	});
 	
 	$(".divbutton").click(function() {
@@ -68,6 +64,8 @@ function newFlag() {
 	$("#div2valdisp").text(2);
 	$("#div3valdisp").text(2);
 	division = "grid";
+	maxX = 3;
+	maxY = 2;
 	setRatio(3, 2);
 }
 
@@ -75,7 +73,6 @@ function setRatio(x, y) {
 	$("#ratioWidth").val(x);
 	$("#ratioHeight").val(y);
 	
-	// Set grid dropdown - break into own function!
 	$("#gridSize").children().remove();
 	for(var i = 1; i <= 20; i++) {
 		$("#gridSize").append("<option>" + (i*y) + ":" + (i*x) + "</option>");
@@ -91,21 +88,29 @@ function setFlagSize() {
 }
 
 function setSliderMaxes(x, y) {
-	maxX = x;
-	maxY = y;
-	var max = x > y ? y : x;
-	$("input[type=range]").each(function() {
+	$("#divisions input[type=range]").each(function() {
+		var max = x > y ? x : y;
+		$(this).val($(this).val());
+		$(this).attr("max", max);
+		$(this).prev().html($(this).val());
+	});
+	
+	$("#overlayArea input[type=range]").each(function() {
 		var useX = $(this).attr("use-x");
 		var useY = $(this).attr("use-y");
-		if (useX != undefined && useX !== false) {
-			$(this).attr("max", x);
-		} else if (useY !== undefined && useY !== false) {
+		var max = x;
+		
+		var newValue = $(this).val() * (max / $(this).attr("max"));
+		if (useY !== undefined && useY !== false) {
+			max = y;
+			newValue = $(this).val() * (max / $(this).attr("max"));
 			$(this).attr("max", y);
 		} else {
 			$(this).attr("max", max);
 		}
 		
-		$(this).val($(this).val());
+		$(this).val(newValue);
+		$(this).prev().html($(this).val());
 	});
 }
 
