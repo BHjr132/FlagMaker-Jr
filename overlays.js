@@ -123,8 +123,23 @@ overlays[overlays.length] = {
 };
 
 overlays[overlays.length] = {
-	name: "Circle",
+	name: "Ellipse",
 	sliders: [["Left", true], ["Top", false], ["Width", true], ["Height", false]],
 	draw: function (fill, values) {
+		var w = $("#flag").width() * values[2] / maxX;
+		var h = values[3] == 0
+			? w
+			: $("#flag").height() * values[3] / maxX;
+		
+		var x = $("#flag").width() * values[0] / maxX;
+		var y = $("#flag").height() * values[1] / maxY;
+		
+		drawThing(makeSVG("ellipse", {
+			rx: w,
+			ry: h,
+			cx: x,
+			cy: y,
+			fill: fill
+		}));
 	}
 };
