@@ -39,7 +39,7 @@ function makePalette(p) {
 }
 
 $(document).on("click", "input[type=range]", function() {
-	$(this).prev().html($(this).val());
+	$(this).parent().prev().children().html($(this).val());
 	draw();
 });
 
@@ -93,7 +93,7 @@ function setSliderMaxes(x, y) {
 		var max = x > y ? x : y;
 		$(this).val($(this).val());
 		$(this).attr("max", max);
-		$(this).prev().html($(this).val());
+		$(this).parent().prev().children().html($(this).val());
 	});
 	
 	$("#overlayArea input[type=range]").each(function() {
@@ -111,7 +111,7 @@ function setSliderMaxes(x, y) {
 		}
 		
 		$(this).val(newValue);
-		$(this).prev().html($(this).val());
+		$(this).parent().prev().children().html($(this).val());
 	});
 }
 
@@ -169,26 +169,17 @@ function draw() {
 
 function showSliders(count) {
 	if (count == 0) {
-		$("#div1valdisp").hide();
-		$("#div1val").hide();
-		$("#div2valdisp").hide();
-		$("#div2val").hide();
-		$("#div3valdisp").hide();
-		$("#div3val").hide();
+		$("#div1tr").hide();
+		$("#div2tr").hide();
+		$("#div3tr").hide();
 	} else if (count == 2) {
-		$("#div1valdisp").show();
-		$("#div1val").show();
-		$("#div2valdisp").show();
-		$("#div2val").show();
-		$("#div3valdisp").hide();
-		$("#div3val").hide();
+		$("#div1tr").show();
+		$("#div2tr").show();
+		$("#div3tr").hide();
 	} else if (count == 3) {
-		$("#div1valdisp").show();
-		$("#div1val").show();
-		$("#div2valdisp").show();
-		$("#div2val").show();
-		$("#div3valdisp").show();
-		$("#div3val").show();
+		$("#div1tr").show();
+		$("#div2tr").show();
+		$("#div3tr").show();
 	}
 }
 

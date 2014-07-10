@@ -4,6 +4,10 @@
 	font-size: 12pt;
 }
 
+table {
+	width: 100%;
+}
+
 #toolbar {
 	background-color: #eeeeee;
 	padding: 5px;
@@ -54,7 +58,7 @@
 }
 
 input[type=range] {
-	width: 300px;
+	width: 100%;
 }
 
 #flag {

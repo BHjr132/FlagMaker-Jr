@@ -1,18 +1,48 @@
+var overlays = [];
 var overlayId = 0;
 
-function addOverlay() {
-	$("#overlays").append("<div id=\"overlay"+ overlayId + "\" class=\"overlay\">" +
-		"<button onclick=\"deleteOverlay(this);\">Delete</button>" +
-		"<input type=\"text\" id=\"ovcol-" + overlayId + "\" /><br />" +
-		"<span id=\"ov1valdisp\">2</span> <input type=\"range\" id=\"ov1val\" min=\"0\" use-x /><br />" +
-		"<span id=\"ov2valdisp\">2</span> <input type=\"range\" id=\"ov2val\" min=\"0\" use-y /><br />" +
-		"<span id=\"ov3valdisp\">2</span> <input type=\"range\" id=\"ov3val\" min=\"0\" use-x /><br />" +
-		"</div>");
+function overlayNames() {
+	var list = "";
+	for (var i = 0; i < overlays.length; i++) {
+		list += "<option>" + overlays[i].name + "</option>";
+	}
 	
+	return list;
+}
+
+function addOverlay() {
+	var overlay = overlays[0];
+	
+	var string = "<div id=\"overlay"+ overlayId + "\" class=\"overlay\">" +
+		"<button onclick=\"deleteOverlay(this);\">Delete</button>" +
+		"<input type=\"text\" id=\"ovcol-" + overlayId + "\" />" +
+		"<select id=\"type-" + overlayId + "\">" + overlayNames() + "</select>" +
+		"<table>";
+		
+	for (var i = 0; i < overlay.sliders.length; i++) {
+		string += "<tr><td>" + overlay.sliders[i][0] + "</td><td><span id=\"ov1valdisp\">2</span></td><td><input type=\"range\" id=\"ov1val\" min=\"0\" ";
+		if (overlay.sliders[i][1]) {
+			string += "use-x ";
+		} else {
+			string += "use-y ";
+		}
+		string += " /></td></tr>";
+	}
+	
+	string += "</table></div>";
+	
+	$("#overlays").append(string);	
 	makePalette($("#ovcol-" + overlayId));
+	
 	$("#ovcol-" + overlayId).change(function() {
 		draw();
 	});
+	
+	$("#type-" + overlayId).change(function() {
+		// TODO: Add/remove sliders
+		draw();
+	});
+	
 	setSliderMaxes(maxX, maxY);
 	draw();
 	overlayId++;
@@ -24,34 +54,77 @@ function deleteOverlay(button) {
 }
 
 function drawOverlay(div) {
+	var overlay;
+	var typeString = div.find("[id^=type]").val();
+	for (var i = 0; i < overlays.length; i++) {
+		if (typeString == overlays[i].name) {
+			overlay = overlays[i];
+			break;
+		}
+	}
+	
+	// Put slider values into an array
 	var values = [];
-	div.children("input[type=range]").each(function() {
+	div.find("input[type=range]").each(function() {
 		values.push($(this).val());
 	});
 	
-	// Draw cross
-	var w = $("#flag").width();
-	var h = $("#flag").height();
-	
-	var t = w * values[2] / maxX;
-	var x = w * values[0] / maxX - t / 2;
-	var y = h * values[1] / maxY - t / 2;
-	
-	var fill = div.find("[id^=ovcol]").val();
-	
-	drawThing(makeSVG("rect", {
-		width: $("#flag").width(),
-		height: t,
-		x: 0,
-		y: y,
-		fill: fill
-	}));
-	
-	drawThing(makeSVG("rect", {
-		width: t,
-		height: $("#flag").height(),
-		x: x,
-		y: 0,
-		fill: fill
-	}));
+	overlay.draw(div.find("[id^=ovcol]").val(), values);
 }
+
+
+// *******************
+// OVERLAY DEFINITIONS
+// *******************
+
+overlays[overlays.length] = {
+	name: "Box",
+	sliders: [["Left", true], ["Top", false], ["Width", true], ["Height", false]],
+	draw: function (fill, values) {
+		var w = $("#flag").width();
+		var h = $("#flag").height();
+		
+		drawThing(makeSVG("rect", {
+			x: w * values[0] / maxX,
+			y: h * values[1] / maxY,
+			width: w * values[2] / maxX,
+			height: h * values[3] / maxY,
+			fill: fill
+		}));
+	}
+};
+
+overlays[overlays.length] = {
+	name: "Cross",
+	sliders: [["Left", true], ["Top", false], ["Thickness", true]],
+	draw: function (fill, values) {
+		var w = $("#flag").width();
+		var h = $("#flag").height();
+		var t = w * values[2] / maxX;
+		var x = w * values[0] / maxX - t / 2;
+		var y = h * values[1] / maxY - t / 2;
+		
+		drawThing(makeSVG("rect", {
+			width: $("#flag").width(),
+			height: t,
+			x: 0,
+			y: y,
+			fill: fill
+		}));
+		
+		drawThing(makeSVG("rect", {
+			width: t,
+			height: $("#flag").height(),
+			x: x,
+			y: 0,
+			fill: fill
+		}));
+	}
+};
+
+overlays[overlays.length] = {
+	name: "Circle",
+	sliders: [["Left", true], ["Top", false], ["Width", true], ["Height", false]],
+	draw: function (fill, values) {
+	}
+};
