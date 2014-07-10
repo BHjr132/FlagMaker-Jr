@@ -8,6 +8,10 @@ table {
 	width: 100%;
 }
 
+img { 
+	vertical-align: middle;
+}
+
 #toolbar {
 	background-color: #eeeeee;
 	padding: 5px;
@@ -55,6 +59,10 @@ table {
 	border: 1px solid #91765d;
 	background-color: #eeeeee;
 	cursor: pointer;
+}
+
+#divColors {
+	margin-top: 10px;
 }
 
 input[type=range] {

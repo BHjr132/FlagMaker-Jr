@@ -11,10 +11,13 @@ function overlayNames() {
 }
 
 function addOverlay() {
+	event.preventDefault();
 	var overlay = overlays[0];
 	
 	var string = "<div id=\"overlay"+ overlayId + "\" class=\"overlay\">" +
-		"<button onclick=\"deleteOverlay(this);\">Delete</button>" +
+		"<a href=\"#\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" title=\"Remove\" /></a>" +
+		"<a href=\"#\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" title=\"Move up\" /></a>" +
+		"<a href=\"#\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" title=\"Move down\" /></a>" +
 		"<input type=\"text\" id=\"ovcol-" + overlayId + "\" />" +
 		"<select id=\"type-" + overlayId + "\">" + overlayNames() + "</select>" +
 		"<table>";
@@ -49,8 +52,27 @@ function addOverlay() {
 }
 
 function deleteOverlay(button) {
+	event.preventDefault();
 	$(button).parent().remove();
 	draw();
+}
+
+function moveUp(button) {
+	event.preventDefault();
+	var before = $(button).parent().prev();
+	if (before.length > 0) {
+		before.before($(button).parent());
+		draw();
+	}
+}
+
+function moveDown(button) {
+	event.preventDefault();
+	var after = $(button).parent().next();
+	if (after.length > 0) {
+		after.after($(button).parent());
+		draw();
+	}
 }
 
 function drawOverlay(div) {
@@ -88,7 +110,7 @@ overlays[overlays.length] = {
 			x: w * values[0] / maxX,
 			y: h * values[1] / maxY,
 			width: w * values[2] / maxX,
-			height: h * values[3] / maxY,
+			height: values[3] == 0 ? w * values[2] / maxX : h * values[3] / maxY,
 			fill: fill
 		}));
 	}
