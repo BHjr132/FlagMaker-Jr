@@ -22,6 +22,31 @@ function addOverlay() {
 		"<select id=\"type-" + overlayId + "\">" + overlayNames() + "</select>" +
 		"<table>";
 		
+	string += getSliderString(overlay);	
+	string += "</table></div>";
+	
+	$("#overlays").append(string);
+	makePalette($("#ovcol-" + overlayId));
+	
+	$("#ovcol-" + overlayId).change(function() {
+		draw();
+	});
+	
+	$("#type-" + overlayId).change(function() {
+		$(this).siblings("table").empty();
+		var newOverlayId = document.getElementById($(this).attr("id")).selectedIndex;
+		$(this).siblings("table").html(getSliderString(overlays[newOverlayId]));
+		setSliderMaxes(maxX, maxY);
+		draw();
+	});
+	
+	setSliderMaxes(maxX, maxY);
+	draw();
+	overlayId++;
+}
+
+function getSliderString(overlay) {
+	var string = "";
 	for (var i = 0; i < overlay.sliders.length; i++) {
 		string += "<tr><td>" + overlay.sliders[i][0] + "</td><td><span id=\"ov1valdisp\">2</span></td><td><input type=\"range\" id=\"ov1val\" min=\"0\" ";
 		if (overlay.sliders[i][1]) {
@@ -32,23 +57,7 @@ function addOverlay() {
 		string += " /></td></tr>";
 	}
 	
-	string += "</table></div>";
-	
-	$("#overlays").append(string);	
-	makePalette($("#ovcol-" + overlayId));
-	
-	$("#ovcol-" + overlayId).change(function() {
-		draw();
-	});
-	
-	$("#type-" + overlayId).change(function() {
-		// TODO: Add/remove sliders
-		draw();
-	});
-	
-	setSliderMaxes(maxX, maxY);
-	draw();
-	overlayId++;
+	return string;
 }
 
 function deleteOverlay(button) {
@@ -161,6 +170,27 @@ overlays[overlays.length] = {
 			ry: h,
 			cx: x,
 			cy: y,
+			fill: fill
+		}));
+	}
+};
+
+overlays[overlays.length] = {
+	name: "Saltire",
+	sliders: [["Thickness", true]],
+	draw: function (fill, values) {
+		var width = $("#flag").width();
+		var height = $("#flag").height();
+		var wX = width * values[0] / maxX / 2;
+		var wY = height * values[0] / maxX / 2;
+		
+		drawThing(makeSVG("polygon", {
+			points: wX + ",0 0,0 0," + wY + " " + (width - wX) + "," + height + " " + width + "," + height + " " + width + "," + (height - wY) + " " + wX + ",0",
+			fill: fill
+		}));
+		
+		drawThing(makeSVG("polygon", {
+			points: (width - wX) + ",0 " + width + ",0 " + width + "," + wY + " " + wX + "," + height + " 0," + height + " 0," + (height - wY) + " " + (width - wX) + ",0",
 			fill: fill
 		}));
 	}

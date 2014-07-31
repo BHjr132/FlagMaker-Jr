@@ -38,7 +38,7 @@ function makePalette(p) {
 	});
 }
 
-$(document).on("click", "input[type=range]", function() {
+$(document).on("change", "input[type=range]", function() {
 	$(this).parent().prev().children().html($(this).val());
 	draw();
 });
