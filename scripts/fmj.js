@@ -27,6 +27,10 @@ $(document).ready(function() {
 		division = $(this).attr("id");
 		draw();
 	});
+	
+	$("#divisions input").bind("change", function() {
+		draw();
+	});
 });
 
 function makePalette(p) {
@@ -38,15 +42,8 @@ function makePalette(p) {
 	});
 }
 
-$(document).on("change", "input[type=range]", function() {
-	$(this).parent().prev().children().html($(this).val());
-	draw();
-});
-
 $(window).load(function() {
-	// Initialize all values
 	newFlag();
-	setRatio(3, 2);
 });
 
 $(window).resize(function() {
@@ -60,9 +57,6 @@ function newFlag() {
 	$("#div1val").val(2);
 	$("#div2val").val(2);
 	$("#div3val").val(2);
-	$("#div1valdisp").text(2);
-	$("#div2valdisp").text(2);
-	$("#div3valdisp").text(2);
 	$("#overlays").empty();
 	division = "grid";
 	maxX = 3;
@@ -79,6 +73,8 @@ function setRatio(x, y) {
 		$("#gridSize").append("<option>" + (i*y) + ":" + (i*x) + "</option>");
 	}
 	
+	$("#gridSize").selectmenu("refresh");
+	
 	setSliderMaxes(x, y);
 	setFlagSize();
 }
@@ -89,11 +85,10 @@ function setFlagSize() {
 }
 
 function setSliderMaxes(x, y) {
-	$("#divisions input[type=range]").each(function() {
-		var max = x > y ? x : y;
-		$(this).val($(this).val());
-		$(this).attr("max", max);
-		$(this).parent().prev().children().html($(this).val());
+	$("#divisions input[type=number]").each(function() {
+		$(this).prop({
+			max: x > y ? x : y
+		}).slider("refresh");
 	});
 	
 	$("#overlayArea input[type=range]").each(function() {
@@ -169,17 +164,17 @@ function draw() {
 
 function showSliders(count) {
 	if (count == 0) {
-		$("#div1tr").hide();
-		$("#div2tr").hide();
-		$("#div3tr").hide();
+		$("#div1val").parent().hide();
+		$("#div2val").parent().hide();
+		$("#div3val").parent().hide();
 	} else if (count == 2) {
-		$("#div1tr").show();
-		$("#div2tr").show();
-		$("#div3tr").hide();
+		$("#div1val").parent().show();
+		$("#div2val").parent().show();
+		$("#div3val").parent().hide();
 	} else if (count == 3) {
-		$("#div1tr").show();
-		$("#div2tr").show();
-		$("#div3tr").show();
+		$("#div1val").parent().show();
+		$("#div2val").parent().show();
+		$("#div3val").parent().show();
 	}
 }
 

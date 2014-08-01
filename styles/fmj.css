@@ -1,25 +1,41 @@
-﻿body {
-	margin: 0;
-	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
-	font-size: 12pt;
-}
-
-table {
-	width: 100%;
-}
-
-img { 
+﻿img { 
 	vertical-align: middle;
 }
 
-#toolbar {
+/*#toolbar {
 	background-color: #eeeeee;
 	padding: 5px;
 	border-bottom: 1px solid #cccccc;
+}*/
+
+/*#ratio div {
+	float: left;
 }
 
-.toollabel {
+#ratio .ui-input-text {
+	width: 50px !important;
+}*/
+
+#ratio {
+	padding-top: 10px;
+}
+
+#ratio div, #ratio input {
+	display: inline-block;
+}
+
+#ratio .ui-input-text {
+	max-width: 50px;
+}
+
+#toolbar {
 	font-weight: bold;
+}
+
+.toolbarLabel {
+	float: left;
+	padding-right: 10px;
+	padding-top: 15px;
 }
 
 .header {
@@ -31,10 +47,7 @@ img {
 	margin-left: 10px;
 }
 
-.ratio {
-	width: 35px;
-}
-
+/*
 #workarea {
 	float: left;
 	width: 100%;
@@ -43,15 +56,6 @@ img {
 .area {
 	padding: 10px;
 	float: left;
-}
-
-#flagarea {
-	width: 60%;
-}
-
-#toolarea {
-	width: 350px;
-	padding: 10px;
 }
 
 .divbutton {
@@ -84,3 +88,4 @@ input[type=range] {
 	border: 1px solid #91765d;
 	padding: 5px;
 }
+*/
