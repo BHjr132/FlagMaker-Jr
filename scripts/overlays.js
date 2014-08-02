@@ -14,29 +14,48 @@ function addOverlay() {
 	event.preventDefault();
 	var overlay = overlays[0];
 	
-	var string = "<div id=\"overlay"+ overlayId + "\" class=\"overlay\">" +
-		"<a href=\"#\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" title=\"Remove\" /></a>" +
-		"<a href=\"#\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" title=\"Move up\" /></a>" +
-		"<a href=\"#\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" title=\"Move down\" /></a>" +
-		"<input type=\"text\" id=\"ovcol-" + overlayId + "\" />" +
-		"<select id=\"type-" + overlayId + "\">" + overlayNames() + "</select>" +
-		"<table>";
-		
-	string += getSliderString(overlay);	
-	string += "</table></div>";
+	var string = "<div id=\"overlay" + overlayId + "\" data-role=\"collapsible\" data-collapsed-icon=\"carat-d\" data-expanded-icon=\"carat-u\" data-collapsed=\"false\">" +
+				"<h4>" + overlay.name + "</h4>" +
+				"<div class=\"buttons\" data-role=\"controlgroup\" data-type=\"horizontal\" data-mini=\"true\">" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" title=\"Remove\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" title=\"Move up\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" title=\"Move down\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-disabled ui-corner-all\" onclick=\"clone(this);\" disabled><img src=\"img\\clone.png\" title=\"Clone\" /></a>" +
+				"</div>" +
+				"<input type=\"text\" id=\"ovcol-" + overlayId + "\" data-role=\"none\" />" +
+				"<select id=\"type-" + overlayId + "\" data-mini=\"true\">" + overlayNames() + "</select><div id=\"sliders\">";
+	
+	string += getSliderString(overlay, overlayId);
+	string += "</div></div>";
 	
 	$("#overlays").append(string);
+	
+	// Apply jQuery mobile styles to dynamic controls
 	makePalette($("#ovcol-" + overlayId));
+	$("#overlay" + overlayId).collapsible();
+	$("#overlay" + overlayId).trigger("create");
 	
 	$("#ovcol-" + overlayId).change(function() {
 		draw();
 	});
 	
+	$("#overlay" + overlayId + " input[type=number]").bind("change", function() {
+		draw();
+	});
+	
 	$("#type-" + overlayId).change(function() {
-		$(this).siblings("table").empty();
+		var id = $(this).attr("id").substr($(this).attr("id").indexOf("-") + 1);
+		var sliderDiv = $(this).parent().parent().next();
+		sliderDiv.empty();
 		var newOverlayId = document.getElementById($(this).attr("id")).selectedIndex;
-		$(this).siblings("table").html(getSliderString(overlays[newOverlayId]));
+		var newOverlay = overlays[newOverlayId];
+		sliderDiv.html(getSliderString(newOverlay), id);
+		sliderDiv.trigger("create");
+		sliderDiv.find("input[type=number]").bind("change", function() {
+			draw();
+		});
 		setSliderMaxes(maxX, maxY);
+		$("#overlay" + id).children("h4").children("a")[0].innerHTML = newOverlay.name;
 		draw();
 	});
 	
@@ -45,16 +64,19 @@ function addOverlay() {
 	overlayId++;
 }
 
-function getSliderString(overlay) {
+function getSliderString(overlay, id) {
 	var string = "";
 	for (var i = 0; i < overlay.sliders.length; i++) {
-		string += "<tr><td>" + overlay.sliders[i][0] + "</td><td><span id=\"ov1valdisp\">2</span></td><td><input type=\"range\" id=\"ov1val\" min=\"0\" ";
+		var label = overlay.sliders[i][0];
+		var name = "slider-" + id + "-" + i;
+		string += "<label for=\"slider-" + name + "-" + i + "\">" + label + "</label>" +
+		          "<input type=\"range\" name=\"" + name + "\" id=\"" + name + "\" data-highlight=\"true\" min=\"0\" max=\"100\" value=\"50\" step=\".1\" ";
 		if (overlay.sliders[i][1]) {
 			string += "use-x ";
 		} else {
 			string += "use-y ";
 		}
-		string += " /></td></tr>";
+		string += ">";
 	}
 	
 	return string;
@@ -62,31 +84,31 @@ function getSliderString(overlay) {
 
 function deleteOverlay(button) {
 	event.preventDefault();
-	$(button).parent().remove();
+	$(button).parent().parent().parent().parent().remove();
 	draw();
 }
 
 function moveUp(button) {
 	event.preventDefault();
-	var before = $(button).parent().prev();
+	var before = $(button).parent().parent().parent().parent().prev();
 	if (before.length > 0) {
-		before.before($(button).parent());
+		before.before($(button).parent().parent().parent().parent());
 		draw();
 	}
 }
 
 function moveDown(button) {
 	event.preventDefault();
-	var after = $(button).parent().next();
+	var after = $(button).parent().parent().parent().parent().next();
 	if (after.length > 0) {
-		after.after($(button).parent());
+		after.after($(button).parent().parent().parent().parent());
 		draw();
 	}
 }
 
 function drawOverlay(div) {
 	var overlay;
-	var typeString = div.find("[id^=type]").val();
+	var typeString = div.find("[id^=type]").last().val();
 	for (var i = 0; i < overlays.length; i++) {
 		if (typeString == overlays[i].name) {
 			overlay = overlays[i];
@@ -96,7 +118,7 @@ function drawOverlay(div) {
 	
 	// Put slider values into an array
 	var values = [];
-	div.find("input[type=range]").each(function() {
+	div.find("input[type=number]").each(function() {
 		values.push($(this).val());
 	});
 	

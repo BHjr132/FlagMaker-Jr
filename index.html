@@ -21,51 +21,51 @@
 </head>
 <body>
 	<div data-role="page">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" class="ui-btn ui-corner-all" onclick="newFlag();">New</a>
-			<a href="#" class="ui-btn ui-corner-all" onclick="exportSvg();">Export SVG</a>
-		</div>
-		
-		<div id="toolbar" data-role="controlgroup" data-type="vertical">
-			<div id="ratio" class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
-				<div class="toolbarLabel">Ratio:</div>
-				<input type="number" min="1" id="ratioHeight" class="ratio" />
-				<div>:</div>
-				<input type="number" min="1" id="ratioWidth" class="ratio" />
+		<div id="toparea">
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="#" class="ui-btn ui-corner-all" onclick="newFlag();">New</a>
+				<a href="#" class="ui-btn ui-corner-all" onclick="exportSvg();">Export SVG</a>
 			</div>
-			<div class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
-				<div class="toolbarLabel">Grid size:</div>
-				<select id="gridSize" name="gridSize"></select>
+			<div id="toolbar" data-role="controlgroup" data-type="vertical">
+				<div id="ratio" class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
+					<div class="toolbarLabel">Ratio:</div>
+					<input type="number" min="1" id="ratioHeight" class="ratio" />
+					<div>:</div>
+					<input type="number" min="1" id="ratioWidth" class="ratio" />
+				</div>
+				<div class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
+					<div class="toolbarLabel">Grid size:</div>
+					<select id="gridSize" name="gridSize"></select>
+				</div>
 			</div>
-		</div>
-		<div id="workarea">
 			<div id="flagarea" class="area">
 				<svg id="flag" xmlns="http://www.w3.org/2000/svg"></svg>
 			</div>
-			<div id="toolarea" class="area">
-				<div id="divisions" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="false">
-					<h4>Division</h4>
-					<div id="ratio" data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<a id="grid" class="divbutton ui-btn ui-corner-all"><img src="img\grid.png" title="Grid" /></a>
-						<a id="fesses" class="divbutton ui-btn ui-corner-all"><img src="img\fesses.png" title="Fesses" /></a>
-						<a id="pales" class="divbutton ui-btn ui-corner-all"><img src="img\pales.png" title="Pales" /></a>
-						<a id="bendsf" class="divbutton ui-btn ui-corner-all"><img src="img\bendsf.png" title="Bends forward" /></a>
-						<a id="bendsb" class="divbutton ui-btn ui-corner-all"><img src="img\bendsb.png" title="Bends backward" /></a>
-						<a id="x" class="divbutton ui-btn ui-corner-all"><img src="img\x.png" title="Bends both" /></a>
-					</div>
-					<div id="divColors">
-						<input type="text" id="div1col" data-role="none" />
-						<input type="text" id="div2col" data-role="none" />
-						<input type="text" id="div3col" data-role="none" />
-					</div>
-					<input type="range" name="div1val" id="div1val" data-highlight="true" min="1" max="20" val="4"></input>
-					<input type="range" name="div2val" id="div2val" data-highlight="true" min="1" max="20" val="4"></input>
-					<input type="range" name="div3val" id="div3val" data-highlight="true" min="1" max="20" val="4"></input>
+		</div>
+		<div id="toolarea" class="area">
+			<div id="divisions" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="true">
+				<h4>Division</h4>
+				<div id="ratio" data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<a id="grid" class="divbutton ui-btn ui-corner-all"><img src="img\grid.png" title="Grid" /></a>
+					<a id="fesses" class="divbutton ui-btn ui-corner-all"><img src="img\fesses.png" title="Fesses" /></a>
+					<a id="pales" class="divbutton ui-btn ui-corner-all"><img src="img\pales.png" title="Pales" /></a>
+					<a id="bendsf" class="divbutton ui-btn ui-corner-all"><img src="img\bendsf.png" title="Bends forward" /></a>
+					<a id="bendsb" class="divbutton ui-btn ui-corner-all"><img src="img\bendsb.png" title="Bends backward" /></a>
+					<a id="x" class="divbutton ui-btn ui-corner-all"><img src="img\x.png" title="Bends both" /></a>
 				</div>
-				<div id="overlayArea">
-					<div><span class="header">Overlays</span> <a href="#" onclick="addOverlay();"><img src="img\add.png" title="Add new" /></a></div>
-					<div id="overlays"></div>
+				<div id="divColors">
+					<input type="text" id="div1col" data-role="none" />
+					<input type="text" id="div2col" data-role="none" />
+					<input type="text" id="div3col" data-role="none" />
 				</div>
+				<input type="range" name="div1val" id="div1val" data-highlight="true" min="1" max="20" val="4"></input>
+				<input type="range" name="div2val" id="div2val" data-highlight="true" min="1" max="20" val="4"></input>
+				<input type="range" name="div3val" id="div3val" data-highlight="true" min="1" max="20" val="4"></input>
+			</div>
+			<div id="overlayArea" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="false">
+				<h4>Overlays</h4>
+				<a href="#" class="ui-btn ui-corner-all" onclick="addOverlay();">Add new</a>
+				<div id="overlays"></div>
 			</div>
 		</div>
 	</div>

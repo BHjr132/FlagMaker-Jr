@@ -1,5 +1,6 @@
-﻿img { 
-	vertical-align: middle;
+﻿@media all and (min-width: 980px){
+	#toparea { float: left; width: 58%; }
+	#toolarea { float: left; width: 38%; }
 }
 
 #ratio {
@@ -35,32 +36,7 @@
 
 #flagarea {
 	text-align: center;
-}
-
-/*
-#workarea {
-	float: left;
-	width: 100%;
-}
-
-.area {
-	padding: 10px;
-	float: left;
-}
-
-.divbutton {
-	padding: 5px;
-	border: 1px solid #91765d;
-	background-color: #eeeeee;
-	cursor: pointer;
-}
-
-#divColors {
-	margin-top: 10px;
-}
-
-input[type=range] {
-	width: 100%;
+	margin: 15px;
 }
 
 #flag {
@@ -68,14 +44,10 @@ input[type=range] {
 	margin: 10px auto 10px auto;
 	background-color: #ffffff;
 	display: block;
+	width: 100%;
 }
 
-#overlayArea {
-	padding-top: 15px;
+.buttons {
+	display: inline;
+	padding-right: 10px;
 }
-
-.overlay {
-	border: 1px solid #91765d;
-	padding: 5px;
-}
-*/

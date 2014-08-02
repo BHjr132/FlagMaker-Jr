@@ -91,7 +91,7 @@ function setSliderMaxes(x, y) {
 		}).slider("refresh");
 	});
 	
-	$("#overlayArea input[type=range]").each(function() {
+	$("#overlayArea input[type=number]").each(function() {
 		var useX = $(this).attr("use-x");
 		var useY = $(this).attr("use-y");
 		var max = x;
@@ -157,7 +157,7 @@ function draw() {
 			break;
 	}
 	
-	$("#overlays").children().each(function() {
+	$("#overlays").children().filter("div").each(function() {
 		drawOverlay($(this));
 	});
 }
