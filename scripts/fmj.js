@@ -106,7 +106,7 @@ function setSliderMaxes(x, y) {
 			$(this).attr("max", max);
 		}
 		
-		$(this).val(newValue);
+		$(this).val(newValue.toFixed(1));
 		$(this).parent().prev().children().html($(this).val());
 	});
 }
