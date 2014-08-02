@@ -3,6 +3,8 @@ var maxX, maxY;
 var colors = ['rgb(93, 53, 39);', 'rgb(130, 36, 51);', 'rgb(198, 12, 48);', 'rgb(255, 99, 25);', 'rgb(253, 200, 47);','rgb(254, 221, 0);', 'rgb(51, 115, 33);', 'rgb(20, 77, 41);', 'rgb(40, 78, 54);', 'rgb(99, 153, 171);', 'rgb(0, 101, 189);', 'rgb(0, 57, 166);', 'rgb(0, 38, 100);', 'rgb(0, 33, 71);', 'rgb(0, 0, 0);', 'rgb(141, 129, 123);', 'rgb(255, 255, 255);'];
 
 $(document).ready(function() {
+	loadOverlays();
+	
 	// Set up color pickers
 	$("#divColors input").each(function() { makePalette($(this)); });
 	
@@ -111,10 +113,14 @@ function setSliderMaxes(x, y) {
 	});
 }
 
-function makeSVG(tag, attrs) {
-	var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
-	for (var k in attrs)
+function makeSVG(tag, attrs, child) {
+	var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+	for (var k in attrs) {
 		el.setAttribute(k, attrs[k]);
+	}
+	if (child != null) {
+		el.appendChild(child);
+	}
 	return el;
 }
 
