@@ -2,20 +2,6 @@
 	vertical-align: middle;
 }
 
-/*#toolbar {
-	background-color: #eeeeee;
-	padding: 5px;
-	border-bottom: 1px solid #cccccc;
-}*/
-
-/*#ratio div {
-	float: left;
-}
-
-#ratio .ui-input-text {
-	width: 50px !important;
-}*/
-
 #ratio {
 	padding-top: 10px;
 }
@@ -45,6 +31,10 @@
 
 .marginleft {
 	margin-left: 10px;
+}
+
+#flagarea {
+	text-align: center;
 }
 
 /*

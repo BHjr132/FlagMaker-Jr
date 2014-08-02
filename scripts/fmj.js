@@ -167,14 +167,17 @@ function showSliders(count) {
 		$("#div1val").parent().hide();
 		$("#div2val").parent().hide();
 		$("#div3val").parent().hide();
+		$("#div3col").next().hide();
 	} else if (count == 2) {
 		$("#div1val").parent().show();
 		$("#div2val").parent().show();
 		$("#div3val").parent().hide();
+		$("#div3col").next().hide();
 	} else if (count == 3) {
 		$("#div1val").parent().show();
 		$("#div2val").parent().show();
 		$("#div3val").parent().show();
+		$("#div3col").next().show();
 	}
 }
 
