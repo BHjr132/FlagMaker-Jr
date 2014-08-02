@@ -74,6 +74,7 @@ function setRatio(x, y) {
 	}
 	
 	$("#gridSize").selectmenu("refresh");
+	$("#gridSize").trigger("change");
 	
 	setSliderMaxes(x, y);
 	setFlagSize();
