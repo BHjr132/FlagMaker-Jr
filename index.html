@@ -24,20 +24,23 @@
 <body>
 	<div data-role="page">
 		<div id="toparea">
-			<div data-role="controlgroup" data-type="horizontal">
-				<a href="#" class="ui-btn ui-corner-all" onclick="newFlag();">New</a>
-				<a href="#" class="ui-btn ui-corner-all" onclick="exportSvg();">Export SVG</a>
-			</div>
-			<div id="toolbar" data-role="controlgroup" data-type="vertical">
-				<div id="ratio" class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
-					<div class="toolbarLabel">Ratio:</div>
-					<input type="number" min="1" id="ratioHeight" class="ratio" />
-					<div>:</div>
-					<input type="number" min="1" id="ratioWidth" class="ratio" />
+			<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="false">
+				<h4>Tools</h4>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a href="#" class="ui-btn ui-corner-all" onclick="newFlag();">New</a>
+					<a href="#" class="ui-btn ui-corner-all" onclick="exportSvg();">Export SVG</a>
 				</div>
-				<div class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
-					<div class="toolbarLabel">Grid size:</div>
-					<select id="gridSize" name="gridSize"></select>
+				<div id="toolbar" data-role="controlgroup" data-type="vertical">
+					<div id="ratio" class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
+						<div class="toolbarLabel">Ratio:</div>
+						<input type="number" min="1" id="ratioHeight" class="ratio" />
+						<div>:</div>
+						<input type="number" min="1" id="ratioWidth" class="ratio" />
+					</div>
+					<div class="ui-field-contain" data-role="controlgroup" data-type="horizontal">
+						<div class="toolbarLabel">Grid size:</div>
+						<select id="gridSize" name="gridSize"></select>
+					</div>
 				</div>
 			</div>
 			<div id="flagarea" class="area">

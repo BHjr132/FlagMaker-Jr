@@ -1,6 +1,17 @@
-﻿@media all and (min-width: 980px){
-	#toparea { float: left; width: 58%; }
-	#toolarea { float: left; width: 38%; }
+﻿@media all and (min-width: 980px) {
+	#toparea {
+		float: left;
+		width: 58%;
+	}
+	
+	#toolarea {
+		float: left;
+		width: 38%;
+	}
+}
+
+#toparea, #toolarea {
+	padding: 0 10px;
 }
 
 #ratio {
