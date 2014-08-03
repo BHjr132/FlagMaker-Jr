@@ -22,10 +22,10 @@ function addOverlay() {
 	var string = "<div id=\"overlay" + overlayId + "\" data-role=\"collapsible\" data-collapsed-icon=\"carat-d\" data-expanded-icon=\"carat-u\" data-collapsed=\"false\">" +
 				"<h4>" + overlay.name + "</h4>" +
 				"<div class=\"buttons\" data-role=\"controlgroup\" data-type=\"horizontal\" data-mini=\"true\">" +
-				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" title=\"Remove\" /></a>" +
-				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" title=\"Move up\" /></a>" +
-				"<a href=\"#\" class=\"ui-btn ui-corner-all\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" title=\"Move down\" /></a>" +
-				"<a href=\"#\" class=\"ui-btn ui-disabled ui-corner-all\" onclick=\"clone(this);\" disabled><img src=\"img\\clone.png\" title=\"Clone\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" title=\"Remove\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" title=\"Move up\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-corner-all\" title=\"Move down\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" /></a>" +
+				"<a href=\"#\" class=\"ui-btn ui-disabled ui-corner-all\" title=\"Clone\" onclick=\"clone(this);\" disabled><img src=\"img\\clone.png\" /></a>" +
 				"</div>" +
 				"<input type=\"text\" id=\"ovcol-" + overlayId + "\" data-role=\"none\" />" +
 				"<select id=\"type-" + overlayId + "\" data-mini=\"true\">" + overlayNames() + "</select><div id=\"sliders\">";
@@ -37,6 +37,7 @@ function addOverlay() {
 	
 	// Apply jQuery mobile styles to dynamic controls
 	makePalette($("#ovcol-" + overlayId));
+	$("#ovcol-" + overlayId).spectrum("set", colors[10]);
 	$("#overlay" + overlayId).collapsible();
 	$("#overlay" + overlayId).trigger("create");
 	
