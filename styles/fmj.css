@@ -62,3 +62,7 @@
 	display: inline;
 	padding-right: 10px;
 }
+
+#overlays {
+	overflow-y: scroll;
+}
