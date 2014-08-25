@@ -390,6 +390,32 @@ function loadOverlaysBasic() {
 	};
 
 	overlays[overlays.length] = {
+		name: "Ring",
+		sliders: [["Left", true, 1], ["Top", false, 1], ["Width", true, 1], ["Height", false, 1], ["Size", true, 1]],
+		draw: function (fill, values) {
+			var width = $("#flag").width();
+			var height = $("#flag").height();
+			var x = width * values[0] / maxX;
+			var y = height * values[1] / maxY;
+
+			var outerRadX = width * values[2] / maxX / 2;
+			var outerRadY = values[3] == 0
+				? outerRadX
+				: height * values[3] / maxY / 2;
+
+			var proportion = values[4] / maxX;
+			var innerRadX = outerRadX * proportion;
+			var innerRadY = outerRadY * proportion;
+			
+			drawThing(makeSVG("path", {
+				d: "M " + x + "," + y + " m -" + outerRadX + ",0 a " + outerRadX + "," + outerRadY + " 0 1,0 " + (2 * outerRadX) + ",0 a " + outerRadX + "," + outerRadY + " 0 1,0 -" + (2 * outerRadX) + ",0 z " +
+				   "M " + x + "," + y + " m " + innerRadX + ",0 a " + innerRadX + "," + innerRadY + " 0 0,1 -" + (2 * innerRadX) + ",0 a " + innerRadX + "," + innerRadY + " 0 1,1 " + (2 * innerRadX) + ",0 z",
+				fill: fill
+			}, null));
+		}
+	};
+
+	overlays[overlays.length] = {
 		name: "Saltire",
 		sliders: [["Thickness", true, 1]],
 		draw: function (fill, values) {
