@@ -435,6 +435,26 @@ function loadOverlaysBasic() {
 			}, null));
 		}
 	};
+
+	overlays[overlays.length] = {
+		name: "Triangle",
+		sliders: [["X1", true, 1], ["Y1", false, 1], ["X2", true, 2], ["Y2", false, 1], ["X3", true, 3], ["Y3", false, 2]],
+		draw: function (fill, values) {
+			var width = $("#flag").width();
+			var height = $("#flag").height();
+			var x1 = width * (values[0] / maxX);
+			var y1 = height * (values[1] / maxY);
+			var x2 = width * (values[2] / maxX);
+			var y2 = height * (values[3] / maxY);
+			var x3 = width * (values[4] / maxX);
+			var y3 = height * (values[5] / maxY);
+			
+			drawThing(makeSVG("polygon", {
+				points: x1 + "," + y1 + " " + x2 + "," + y2 + " " + x3 + "," + y3,
+				fill: fill
+			}, null));
+		}
+	};
 }
 
 function borderIntersection(centerX, centerY, angle, width, height) {
