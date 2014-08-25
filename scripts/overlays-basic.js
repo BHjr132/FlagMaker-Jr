@@ -106,6 +106,25 @@ function loadOverlaysBasic() {
 	};
 
 	overlays[overlays.length] = {
+		name: "Diamond",
+		sliders: [["Left", true, 1], ["Top", false, 1], ["Width", true, 1], ["Height", false, 1]],
+		draw: function (fill, values) {
+			var w = $("#flag").width() * (values[2] / maxX);
+			var h = values[3] == 0
+					? w
+					: $("#flag").height() * (values[3] / maxY);
+
+			var x = $("#flag").width() * (values[0] / maxX);
+			var y = $("#flag").height() * (values[1] / maxY);
+			
+			drawThing(makeSVG("polygon", {
+				points: x + "," + (y - h/2) + " " + (x + w/2) + "," + y + " " + x + "," + (y + h/2) + " " + (x - w/2) + "," + y,
+				fill: fill
+			}, null));
+		}
+	};
+
+	overlays[overlays.length] = {
 		name: "Ellipse",
 		sliders: [["Left", true, 1], ["Top", false, 1], ["Width", true, 1], ["Height", false, 1]],
 		draw: function (fill, values) {
@@ -322,20 +341,51 @@ function loadOverlaysBasic() {
 		name: "Rays",
 		sliders: [["Left", true, 1], ["Top", false, 1], ["Count", true, 5]],
 		draw: function (fill, values) {
+			// Get path data
 			var width = $("#flag").width();
 			var height = $("#flag").height();
-			var wX = width * values[0] / maxX / 2;
-			var wY = height * values[0] / maxX / 2;
+			var paths = [];
+			var centerX = width * (values[0] / maxX);
+			var centerY = height * (values[1] / maxY);
+			var count = values[2];
+			var angularInterval = Math.PI / count;
 			
-			drawThing(makeSVG("polygon", {
-				points: wX + ",0 0,0 0," + wY + " " + (width - wX) + "," + height + " " + width + "," + height + " " + width + "," + (height - wY) + " " + wX + ",0",
-				fill: fill
-			}, null));
+			for (var i = 0; i < count; i++)
+			{
+				var point1 = borderIntersection(centerX, centerY, angularInterval * 2 * i, width, height);
+				var point2 = borderIntersection(centerX, centerY, angularInterval * (2 * i + 1), width, height);
+
+				// If points lie on different sides, add corner
+				var point3 = "";
+				if (point1.x != point2.x && point1.y != point2.y)
+				{
+					if (point1.y == 0)
+					{
+						point3 = "0,0 ";
+					}
+					else if (point1.x == 0)
+					{
+						point3 = "0," + height + " ";
+					}
+					else if (point1.y == height)
+					{
+						point3 = width + "," + height + " ";
+					}
+					else if (point1.x == width)
+					{
+						point3 = width + ",0 ";
+					}
+				}
+
+				paths[paths.length] = "M " + centerX + "," + centerY + " " + point1.x + "," + point1.y + " " + point3 + "" + point2.x + "," + point2.y + " Z";
+			}
 			
-			drawThing(makeSVG("polygon", {
-				points: (width - wX) + ",0 " + width + ",0 " + width + "," + wY + " " + wX + "," + height + " 0," + height + " 0," + (height - wY) + " " + (width - wX) + ",0",
-				fill: fill
-			}, null));
+			for (var i = 0; i < paths.length; i++) {
+				drawThing(makeSVG("path", {
+					d: paths[i],
+					fill: fill
+				}, null));
+			}
 		}
 	};
 
@@ -359,4 +409,56 @@ function loadOverlaysBasic() {
 			}, null));
 		}
 	};
+}
+
+function borderIntersection(centerX, centerY, angle, width, height) {
+	var possiblePoints = [];
+
+	if (angle > 0 && angle < Math.PI)
+	{
+		// Check intersection with top border
+		var tX = centerY / Math.tan(angle);
+		possiblePoints[possiblePoints.length] = { x: centerX + tX, y: 0, dist: distance(tX, 0, 0, centerY) };
+	}
+	if (angle > Math.PI / 2 && angle < 3 * Math.PI / 2)
+	{
+		// Check intersection with left border
+		var tY = centerX * Math.tan(2 * Math.PI - angle);
+		possiblePoints[possiblePoints.length] = { x: 0, y: centerY - tY, dist: distance(0, -tY, centerX, 0) };
+	}
+	if (angle > Math.PI && angle < 2 * Math.PI)
+	{
+		// Check intersection with bottom border
+		var tX = Math.tan(3 * Math.PI / 2 - angle) * (height - centerY);
+		possiblePoints[possiblePoints.length] = { x: centerX - tX, y: height, dist: distance(-tX, height, 0, centerY) };
+	}
+	if (angle < Math.PI / 2)
+	{
+		// Check intersection with right border - above 0 degrees
+		var tY = Math.tan(angle) * (width - centerX);
+		possiblePoints[possiblePoints.length] = { x: width, y: centerY - tY, dist: distance(width, -tY, centerX, 0) };
+	}
+	if (angle > 3 * Math.PI / 2)
+	{
+		// Check intersection with right border - below 180 degrees
+		var tY = Math.tan(2 * Math.PI - angle) * (width - centerX);
+		possiblePoints[possiblePoints.length] = { x: width, y: centerY + tY, dist: distance(width, tY, centerX, 0) };
+	}
+
+	if (possiblePoints.length == 0) {
+		return { x: centerX, y: centerY };
+	}
+	
+	var maxDistPoint = { x: 0, y: 0, dist: 0 };
+	for (var i = 0; i < possiblePoints.length; i++) {
+		if (possiblePoints[i].dist > maxDistPoint.dist) {
+			maxDistPoint = possiblePoints[i];
+		}
+	}
+	
+	return maxDistPoint;
+}
+
+function distance(x1, y1, x2, y2) {
+	return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
 }
